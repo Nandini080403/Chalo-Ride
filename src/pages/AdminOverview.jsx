@@ -1,30 +1,76 @@
+import { useEffect, useState } from "react";
+
+import axios from "axios";
+
 import AdminHeader from "../components/admin/AdminHeader";
 import DashboardTabs from "../components/admin/DashboardTabs";
-import StatCard from "../components/admin/StatCard";
-import QuickActions from "../components/admin/QuickActions";
-import RecentAlerts from "../components/admin/RecentAlerts";
 
 import {
   FiUsers,
   FiActivity,
   FiShield,
-  FiDollarSign,
 } from "react-icons/fi";
 
+import { TbCurrencyRupee }
+from "react-icons/tb";
+
+import StatCard from "../components/admin/StatCard";
+import QuickActions from "../components/admin/QuickActions";
+import RecentAlerts from "../components/admin/RecentAlerts";
+
 export default function AdminOverview() {
+
+  const [overview, setOverview] =
+    useState(null);
+
+  useEffect(() => {
+
+    fetchOverview();
+
+  }, []);
+
+  const fetchOverview = async () => {
+
+    try {
+
+      const res =
+        await axios.get(
+          "http://localhost:5000/api/admin/overview"
+        );
+
+      setOverview(res.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
   return (
+
     <div className="min-h-screen bg-[#f5f7fb]">
+
+      {/* HEADER */}
       <AdminHeader />
+
+      {/* TABS */}
       <DashboardTabs active="overview" />
 
-      <div className="p-5">
-        {/* Cards */}
-        <div className="grid grid-cols-4 gap-6">
+      {/* CONTENT */}
+      <div className="max-w-[1450px] mx-auto px-8 py-8">
+
+        {/* STATS */}
+        <div className="grid grid-cols-4 gap-6 mb-8">
+
           <StatCard
             icon={<FiUsers />}
             title="Total Riders"
-            value="1247"
-            growth="+12% from last month"
+            value={
+              overview?.totalRiders || 0
+            }
+            growth="Live rider statistics"
             iconBg="bg-[#ede9fe]"
             iconColor="text-[#6366f1]"
           />
@@ -32,8 +78,10 @@ export default function AdminOverview() {
           <StatCard
             icon={<FiActivity />}
             title="Active Rides"
-            value="89"
-            growth="+8% from yesterday"
+            value={
+              overview?.activeRides || 0
+            }
+            growth="Currently active rides"
             iconBg="bg-[#dcfce7]"
             iconColor="text-[#16a34a]"
           />
@@ -41,29 +89,38 @@ export default function AdminOverview() {
           <StatCard
             icon={<FiShield />}
             title="Pending Verifications"
-            value="34"
+            value={
+              overview?.pendingVerifications || 0
+            }
             growth="Needs attention"
             iconBg="bg-[#fef3c7]"
             iconColor="text-[#f59e0b]"
           />
 
           <StatCard
-            icon={<FiDollarSign />}
+            icon={<TbCurrencyRupee />}
             title="Total Earnings"
-            value="₹45,680"
-            growth="+15% from last month"
-            iconBg="bg-[#c7d2fe]"
-            iconColor="text-white"
-            purple
+            value={`₹${overview?.totalEarnings || 0}`}
+            growth="Platform ride revenue"
+            iconBg="bg-[#eef2ff]"
+            iconColor="text-[#6366f1]"
           />
+
         </div>
 
-        {/* Bottom Section */}
-        <div className="grid grid-cols-2 gap-6 mt-8">
+        {/* BOTTOM */}
+        <div className="grid grid-cols-2 gap-6">
+
           <QuickActions />
+
           <RecentAlerts />
+
         </div>
+
       </div>
+
     </div>
+
   );
+
 }

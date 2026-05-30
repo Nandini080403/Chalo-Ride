@@ -46,7 +46,7 @@ export default function Legal() {
 
             <button
               onClick={() => setActiveTab("terms")}
-              className={`py-3 font-bold transition ${
+              className={`py-5 font-bold transition ${
                 activeTab === "terms"
                   ? "bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white"
                   : "text-slate-500 bg-white"
@@ -57,7 +57,7 @@ export default function Legal() {
 
             <button
               onClick={() => setActiveTab("privacy")}
-              className={`py-3 font-bold transition ${
+              className={`py-5 font-bold transition ${
                 activeTab === "privacy"
                   ? "bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white"
                   : "text-slate-500 bg-white"
@@ -69,7 +69,7 @@ export default function Legal() {
           </div>
 
           {/* BODY */}
-          <div className="p-5 md:p-14">
+          <div className="p-8 md:p-14">
 
             {/* TERMS TAB */}
             {activeTab === "terms" && (
@@ -230,7 +230,7 @@ export default function Legal() {
                 </div>
 
                 {/* BOTTOM TRUST BOX */}
-                <div className="mt-16 bg-green-50 border-l-4 border-green-500 rounded-2xl p-5 flex items-center gap-3">
+                <div className="mt-16 bg-green-50 border-l-4 border-green-500 rounded-2xl p-8 flex items-center gap-3">
 
                   <CheckCircle className="text-green-600" />
 

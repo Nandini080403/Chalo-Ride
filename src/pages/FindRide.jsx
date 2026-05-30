@@ -65,8 +65,8 @@ export default function FindRide() {
         </div>
 
         {/* Search Box */}
-        <div className="bg-white border rounded-[36px] p-5 mb-16">
-          <div className="grid grid-cols-4 gap-5">
+        <div className="bg-white border rounded-[36px] p-8 mb-16">
+          <div className="grid grid-cols-4 gap-8">
             {/* From */}
             <div>
               <label className="font-semibold text-[#1e293b] mb-3 block">
@@ -76,7 +76,7 @@ export default function FindRide() {
               <input
                 type="text"
                 placeholder="Starting location"
-                className="w-full bg-[#f8fafc] border rounded-2xl px-7 py-3 outline-none text-[14px]"
+                className="w-full bg-[#f8fafc] border rounded-2xl px-7 py-5 outline-none text-[14px]"
               />
             </div>
 
@@ -89,7 +89,7 @@ export default function FindRide() {
               <input
                 type="text"
                 placeholder="Destination"
-                className="w-full bg-[#f8fafc] border rounded-2xl px-7 py-3 outline-none text-[14px]"
+                className="w-full bg-[#f8fafc] border rounded-2xl px-7 py-5 outline-none text-[14px]"
               />
             </div>
 
@@ -102,13 +102,13 @@ export default function FindRide() {
               <input
                 type="text"
                 placeholder="Select time"
-                className="w-full bg-[#f8fafc] border rounded-2xl px-7 py-3 outline-none text-[14px]"
+                className="w-full bg-[#f8fafc] border rounded-2xl px-7 py-5 outline-none text-[14px]"
               />
             </div>
 
             {/* Button */}
             <div className="flex items-end">
-              <button className="w-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white py-3 rounded-2xl font-semibold text-xl flex items-center justify-center gap-3">
+              <button className="w-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white py-5 rounded-2xl font-semibold text-xl flex items-center justify-center gap-3">
                 <FiSearch />
                 Search Rides
               </button>
@@ -121,7 +121,7 @@ export default function FindRide() {
           {rides.map((ride, index) => (
             <div
               key={index}
-              className="bg-white border rounded-[32px] p-5 flex justify-between items-center shadow-sm"
+              className="bg-white border rounded-[32px] p-8 flex justify-between items-center shadow-sm"
             >
               {/* Left */}
               <div className="flex items-center gap-6">
@@ -140,7 +140,7 @@ export default function FindRide() {
                     {ride.course}
                   </p>
 
-                  <div className="flex flex-wrap gap-5 text-gray-500">
+                  <div className="flex flex-wrap gap-8 text-gray-500">
                     <div className="flex items-center gap-2">
                       <FiMapPin className="text-[#6366f1]" />
 

@@ -43,7 +43,7 @@ export default function Requests() {
         <div className="grid grid-cols-3 gap-6 mb-14">
 
           {/* Pending */}
-          <div className="bg-white border rounded-[32px] p-5 flex justify-between items-center">
+          <div className="bg-white border rounded-[32px] p-8 flex justify-between items-center">
 
             <div>
 
@@ -64,7 +64,7 @@ export default function Requests() {
           </div>
 
           {/* Accepted */}
-          <div className="bg-white border rounded-[32px] p-5 flex justify-between items-center">
+          <div className="bg-white border rounded-[32px] p-8 flex justify-between items-center">
 
             <div>
 
@@ -85,7 +85,7 @@ export default function Requests() {
           </div>
 
           {/* Rejected */}
-          <div className="bg-white border rounded-[32px] p-5 flex justify-between items-center">
+          <div className="bg-white border rounded-[32px] p-8 flex justify-between items-center">
 
             <div>
 
@@ -151,7 +151,7 @@ export default function Requests() {
           <div className="flex justify-between gap-6">
 
             {/* Left */}
-            <div className="flex gap-5 flex-1">
+            <div className="flex gap-8 flex-1">
 
               <img
                 src="https://randomuser.me/api/portraits/women/44.jpg"
@@ -180,7 +180,7 @@ export default function Requests() {
                 </p>
 
                 {/* Ride Details */}
-                <div className="bg-[#f8fafc] rounded-[28px] p-5 grid grid-cols-2 gap-5">
+                <div className="bg-[#f8fafc] rounded-[28px] p-8 grid grid-cols-2 gap-8">
 
                   <div>
 
@@ -250,18 +250,18 @@ export default function Requests() {
             </div>
 
             {/* Right Buttons */}
-            <div className="flex flex-col gap-5 min-w-[220px]">
+            <div className="flex flex-col gap-8 min-w-[220px]">
 
               <button
                 onClick={() =>
                   navigate("/active-ride")
                 }
-                className="bg-green-500 hover:bg-green-600 transition text-white px-7 py-3 rounded-2xl text-xl font-semibold"
+                className="bg-green-500 hover:bg-green-600 transition text-white px-7 py-5 rounded-2xl text-xl font-semibold"
               >
                 ✓ Accept
               </button>
 
-              <button className="border-2 border-red-400 text-red-500 hover:bg-red-50 transition px-7 py-3 rounded-2xl text-xl font-semibold">
+              <button className="border-2 border-red-400 text-red-500 hover:bg-red-50 transition px-7 py-5 rounded-2xl text-xl font-semibold">
                 ✕ Reject
               </button>
 

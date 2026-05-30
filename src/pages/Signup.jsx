@@ -315,26 +315,26 @@ export default function Signup() {
             text-xl
           ">
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-8">
               <FiCheckCircle />
               Verified student-only community
             </div>
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-8">
               <FiShield />
               Safe and secure ride sharing
             </div>
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-8">
               📉 Save up to 70% on daily commute
             </div>
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-8">
               <FiUsers />
               Build your campus network
             </div>
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-8">
               🌱 Reduce your carbon footprint
             </div>
 

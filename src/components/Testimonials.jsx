@@ -24,7 +24,7 @@ export default function Testimonials() {
 
             <div
               key={index}
-              className="border border-slate-200 rounded-[30px] p-5 hover:shadow-xl duration-300"
+              className="border border-slate-200 rounded-[30px] p-8 hover:shadow-xl duration-300"
             >
 
               <div className="flex items-center gap-4">

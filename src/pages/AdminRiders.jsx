@@ -4,17 +4,13 @@ import { Link } from "react-router-dom";
 
 import API from "../api";
 
+import AdminHeader from "../components/admin/AdminHeader";
+import DashboardTabs from "../components/admin/DashboardTabs";
+
 import {
-  FiGrid,
-  FiShield,
-  FiUsers,
-  FiAlertTriangle,
-  FiBarChart2,
-  FiBell,
   FiSearch,
   FiFilter,
   FiMapPin,
-  FiStar,
 } from "react-icons/fi";
 
 export default function AdminRiders() {
@@ -22,7 +18,14 @@ export default function AdminRiders() {
   const [rides, setRides] =
     useState([]);
 
-  // FETCH RIDES
+  const [search, setSearch] =
+    useState("");
+
+  const [filter, setFilter] =
+    useState("all");
+
+
+  // ================= FETCH RIDES =================
   const fetchRides =
     async () => {
 
@@ -33,7 +36,9 @@ export default function AdminRiders() {
             "/rides"
           );
 
-        setRides(res.data);
+        setRides(
+          res.data
+        );
 
       } catch (error) {
 
@@ -49,183 +54,53 @@ export default function AdminRiders() {
 
   }, []);
 
+
+  // ================= FILTERED RIDES =================
+  const filteredRides =
+    rides.filter((ride) => {
+
+      const matchesSearch =
+
+        ride.driver?.name
+          ?.toLowerCase()
+          .includes(
+            search.toLowerCase()
+          ) ||
+
+        ride.driver?.email
+          ?.toLowerCase()
+          .includes(
+            search.toLowerCase()
+          );
+
+      const matchesFilter =
+
+        filter === "all"
+          ? true
+          : filter === "highfare"
+          ? ride.fare >= 100
+          : ride.fare < 100;
+
+      return (
+        matchesSearch &&
+        matchesFilter
+      );
+
+    });
+
+
   return (
 
     <div className="min-h-screen bg-[#f5f7fb]">
 
-      {/* TOP NAVBAR */}
-      <div className="bg-white border-b">
-
-        <div className="max-w-[1400px] mx-auto px-7 py-3 flex items-center justify-between">
-
-          {/* LOGO */}
-          <div className="flex items-center gap-4">
-
-            <div className="w-14 h-14 rounded-full bg-gradient-to-r from-[#6366f1] to-[#ec4899] flex items-center justify-center text-white text-xl shadow-lg">
-
-              🛵
-
-            </div>
-
-            <h1 className="text-3xl font-bold">
-
-              <span className="text-[#6366f1]">
-
-                Chalo
-
-              </span>
-
-              <span className="text-[#ec4899]">
-
-                Ride
-
-              </span>
-
-            </h1>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* DASHBOARD HEADER */}
-      <div className="bg-white border-b">
-
-        <div className="max-w-[1400px] mx-auto px-7 py-3 flex items-center justify-between">
-
-          {/* LEFT */}
-          <div className="flex items-center gap-5">
-
-            <FiGrid className="text-3xl text-[#6366f1]" />
-
-            <div>
-
-              <h1 className="text-3xl font-bold text-[#1e293b]">
-
-                Admin Dashboard
-
-              </h1>
-
-              <p className="text-gray-500 text-xl">
-
-                ChaloRide Management Portal
-
-              </p>
-
-            </div>
-
-          </div>
-
-          {/* RIGHT */}
-          <div className="flex items-center gap-5">
-
-            <div className="bg-[#f8fafc] px-7 py-3 rounded-2xl flex items-center gap-3 text-[14px]">
-
-              <FiBell />
-
-              12 New
-
-            </div>
-
-            <button className="border px-7 py-3 rounded-2xl font-semibold">
-
-              Exit Admin
-
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* NAVIGATION */}
-      <div className="max-w-[1400px] mx-auto px-7 pt-8">
-
-        <div className="bg-white rounded-[32px] border p-4 flex justify-between">
-
-          <Link
-            to="/admin"
-            className="flex-1"
-          >
-
-            <button className="w-full py-3 rounded-2xl flex items-center justify-center gap-3 text-gray-500 text-xl font-semibold">
-
-              <FiGrid />
-
-              Overview
-
-            </button>
-
-          </Link>
-
-          <Link
-            to="/admin/verifications"
-            className="flex-1"
-          >
-
-            <button className="w-full py-3 rounded-2xl flex items-center justify-center gap-3 text-gray-500 text-xl font-semibold">
-
-              <FiShield />
-
-              Verifications
-
-            </button>
-
-          </Link>
-
-          <Link
-            to="/admin/riders"
-            className="flex-1"
-          >
-
-            <button className="w-full py-3 rounded-2xl bg-[#7c7df6] text-white flex items-center justify-center gap-3 text-xl font-semibold shadow-lg">
-
-              <FiUsers />
-
-              Riders
-
-            </button>
-
-          </Link>
-
-          <Link
-            to="/admin/complaints"
-            className="flex-1"
-          >
-
-            <button className="w-full py-3 rounded-2xl flex items-center justify-center gap-3 text-gray-500 text-xl font-semibold">
-
-              <FiAlertTriangle />
-
-              Complaints
-
-            </button>
-
-          </Link>
-
-          <Link
-            to="/admin/earnings"
-            className="flex-1"
-          >
-
-            <button className="w-full py-3 rounded-2xl flex items-center justify-center gap-3 text-gray-500 text-xl font-semibold">
-
-              <FiBarChart2 />
-
-              Earnings
-
-            </button>
-
-          </Link>
-
-        </div>
-
-      </div>
+      {/* HEADER */}
+      <AdminHeader />
+
+      {/* TABS */}
+      <DashboardTabs active="riders" />
 
       {/* CONTENT */}
-      <div className="max-w-[1400px] mx-auto px-7 py-10">
+      <div className="max-w-[1450px] mx-auto px-8 py-8">
 
         {/* TOP */}
         <div className="flex items-center justify-between mb-8">
@@ -239,36 +114,72 @@ export default function AdminRiders() {
           <div className="flex gap-4">
 
             {/* SEARCH */}
-            <div className="bg-white border rounded-2xl px-7 py-2 flex items-center gap-3 w-[320px]">
+            <div className="bg-white border border-[#e2e8f0] rounded-2xl px-6 h-[56px] flex items-center gap-3 w-[320px]">
 
-              <FiSearch className="text-gray-400 text-xl" />
+              <FiSearch className="text-gray-400 text-lg" />
 
               <input
                 type="text"
                 placeholder="Search riders..."
-                className="outline-none w-full bg-transparent"
+                value={search}
+                onChange={(e) =>
+                  setSearch(
+                    e.target.value
+                  )
+                }
+                className="outline-none w-full bg-transparent text-[14px]"
               />
 
             </div>
 
+
             {/* FILTER */}
-            <button className="bg-white border px-7 py-2 rounded-2xl flex items-center gap-3 text-[14px] font-semibold">
+            <div className="bg-white border border-[#e2e8f0] px-5 h-[56px] rounded-2xl flex items-center gap-3">
 
-              <FiFilter />
+              <FiFilter className="text-gray-500" />
 
-              Filter
+              <select
+                value={filter}
+                onChange={(e) =>
+                  setFilter(
+                    e.target.value
+                  )
+                }
+                className="outline-none bg-transparent text-[14px] font-semibold text-[#1e293b]"
+              >
 
-            </button>
+                <option value="all">
+
+                  All Rides
+
+                </option>
+
+                <option value="highfare">
+
+                  High Fare
+
+                </option>
+
+                <option value="lowfare">
+
+                  Low Fare
+
+                </option>
+
+              </select>
+
+            </div>
 
           </div>
 
         </div>
 
+
         {/* TABLE */}
-        <div className="bg-white rounded-[36px] border overflow-hidden">
+        <div className="bg-white rounded-[36px] border border-[#e2e8f0] overflow-hidden">
 
           {/* HEADER */}
-          <div className="grid grid-cols-7 gap-4 px-10 py-6 bg-[#f8fafc] font-bold text-[#1e293b] text-[14px]">
+          <div className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1.2fr_1fr_1.3fr] gap-6 px-10 py-6 bg-[#f8fafc] font-bold text-[#1e293b] text-[14px]">
 
             <p>Rider</p>
 
@@ -286,18 +197,19 @@ export default function AdminRiders() {
 
           </div>
 
+
           {/* ROWS */}
-          {rides.map((ride) => (
+          {filteredRides.map((ride) => (
 
             <div
               key={ride._id}
-              className="grid grid-cols-7 gap-4 px-10 py-3 border-t items-center"
+              className="grid grid-cols-[2fr_1.5fr_1fr_1fr_1.2fr_1fr_1.3fr] gap-6 px-10 py-5 border-t border-[#f1f5f9] items-center"
             >
 
               {/* RIDER */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 min-w-0">
 
-                <div className="w-14 h-14 rounded-full bg-[#f3e8ff] flex items-center justify-center text-[#6366f1] font-bold text-xl">
+                <div className="w-14 h-14 rounded-full bg-[#f3e8ff] flex items-center justify-center text-[#6366f1] font-bold text-xl flex-shrink-0">
 
                   {
                     ride.driver?.name
@@ -306,9 +218,9 @@ export default function AdminRiders() {
 
                 </div>
 
-                <div>
+                <div className="min-w-0">
 
-                  <h2 className="font-bold text-[14px] text-[#1e293b]">
+                  <h2 className="font-bold text-[15px] text-[#1e293b] truncate">
 
                     {
                       ride.driver?.name
@@ -316,7 +228,7 @@ export default function AdminRiders() {
 
                   </h2>
 
-                  <p className="text-gray-500 text-base">
+                  <p className="text-gray-500 text-sm truncate">
 
                     {
                       ride.driver?.email
@@ -328,22 +240,23 @@ export default function AdminRiders() {
 
               </div>
 
-              {/* ROUTE */}
-              <div>
 
-                <p className="font-semibold">
+              {/* ROUTE */}
+              <div className="min-w-0">
+
+                <p className="font-semibold text-[14px] truncate">
 
                   {ride.from}
 
                 </p>
 
-                <p className="text-gray-500">
+                <p className="text-gray-400 text-sm">
 
                   ↓
 
                 </p>
 
-                <p className="font-semibold">
+                <p className="font-semibold text-[14px] truncate">
 
                   {ride.to}
 
@@ -351,16 +264,17 @@ export default function AdminRiders() {
 
               </div>
 
+
               {/* VEHICLE */}
               <div>
 
-                <p className="font-semibold">
+                <p className="font-semibold text-[14px]">
 
                   {ride.vehicle}
 
                 </p>
 
-                <p className="text-gray-500 text-base">
+                <p className="text-gray-500 text-sm">
 
                   Seats:
                   {" "}
@@ -370,10 +284,11 @@ export default function AdminRiders() {
 
               </div>
 
+
               {/* FARE */}
               <div>
 
-                <p className="text-[#6366f1] font-bold text-xl">
+                <p className="text-[#6366f1] font-bold text-[24px]">
 
                   ₹{ride.fare}
 
@@ -381,19 +296,25 @@ export default function AdminRiders() {
 
               </div>
 
+
               {/* LOCATION */}
-              <div className="flex items-center gap-2 text-gray-600">
+              <div className="flex items-center gap-2 text-gray-600 text-[14px] min-w-0">
 
                 <FiMapPin />
 
-                {ride.from}
+                <span className="truncate">
+
+                  {ride.from}
+
+                </span>
 
               </div>
+
 
               {/* STATUS */}
               <div>
 
-                <span className="bg-green-100 text-green-600 px-4 py-2 rounded-full text-base font-semibold">
+                <span className="bg-green-100 text-green-600 px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap">
 
                   Active
 
@@ -401,20 +322,21 @@ export default function AdminRiders() {
 
               </div>
 
+
               {/* ACTION */}
               <div>
 
-              <Link
-                to={`/admin/riders/${ride._id}`}
-              >
+                <Link
+                  to={`/admin/riders/${ride._id}`}
+                >
 
-                <button className="bg-[#eef2ff] text-[#6366f1] px-7 py-3 rounded-2xl font-semibold">
+                  <button className="bg-[#eef2ff] text-[#6366f1] px-6 h-[50px] rounded-2xl font-semibold hover:bg-[#e0e7ff] transition text-[14px] whitespace-nowrap">
 
-                  View Details
+                    View Details
 
-                </button>
+                  </button>
 
-              </Link>
+                </Link>
 
               </div>
 

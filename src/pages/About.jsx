@@ -449,7 +449,7 @@ export default function About() {
                 className="
                 flex
                 items-center
-                gap-5
+                gap-8
                 text-[14px]
                 md:text-xl
                 text-slate-700
@@ -468,7 +468,7 @@ export default function About() {
                 className="
                 flex
                 items-center
-                gap-5
+                gap-8
                 text-[14px]
                 md:text-xl
                 text-slate-700
@@ -487,7 +487,7 @@ export default function About() {
                 className="
                 flex
                 items-center
-                gap-5
+                gap-8
                 text-[14px]
                 md:text-xl
                 text-slate-700

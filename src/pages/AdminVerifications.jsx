@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+
+import AdminHeader from "../components/admin/AdminHeader";
+import DashboardTabs from "../components/admin/DashboardTabs";
 
 import API from "../api";
 
 import {
-  FiGrid,
-  FiShield,
-  FiUsers,
-  FiAlertTriangle,
-  FiBarChart2,
-  FiBell,
   FiFilter,
   FiDownload,
   FiMail,
@@ -70,186 +69,66 @@ export default function AdminVerifications() {
 
   }, []);
 
+  const exportPDF = () => {
+
+    const doc =
+      new jsPDF();
+
+    doc.setFontSize(20);
+
+    doc.text(
+      "ChaloRide Verification Report",
+      14,
+      20
+    );
+
+    autoTable(doc, {
+
+      startY: 35,
+
+      head: [[
+        "Name",
+        "Email",
+        "Department",
+        "Year",
+        "Status",
+      ]],
+
+      body: users.map((user) => ([
+
+        user.name,
+
+        user.email,
+
+        user.department,
+
+        user.year,
+
+        user.isVerified
+          ? "Verified"
+          : "Pending",
+
+      ])),
+
+    });
+
+    doc.save(
+      "verification-report.pdf"
+    );
+
+  };
+
   return (
 
     <div className="min-h-screen bg-[#f5f7fb]">
 
-      {/* HEADER */}
-      <div className="bg-white border-b">
+      
+    <AdminHeader />
 
-        <div className="max-w-[1400px] mx-auto px-7 py-3 flex items-center justify-between">
-
-          {/* LOGO */}
-          <div className="flex items-center gap-4">
-
-            <div className="w-14 h-14 rounded-full bg-gradient-to-r from-[#6366f1] to-[#ec4899] flex items-center justify-center text-white text-xl shadow-lg">
-
-              🛵
-
-            </div>
-
-            <div>
-
-              <h1 className="text-3xl font-bold">
-
-                <span className="text-[#6366f1]">
-
-                  Chalo
-
-                </span>
-
-                <span className="text-[#ec4899]">
-
-                  Ride
-
-                </span>
-
-              </h1>
-
-            </div>
-
-          </div>
-
-          {/* RIGHT */}
-          <div className="flex items-center gap-5">
-
-            <div className="bg-[#f8fafc] px-7 py-3 rounded-2xl flex items-center gap-3 text-[14px]">
-
-              <FiBell />
-
-              12 New
-
-            </div>
-
-            <button className="border px-7 py-3 rounded-2xl font-semibold">
-
-              Exit Admin
-
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* TITLE */}
-      <div className="bg-white border-b">
-
-        <div className="max-w-[1400px] mx-auto px-7 py-3">
-
-          <div className="flex items-center gap-5">
-
-            <FiGrid className="text-3xl text-[#6366f1]" />
-
-            <div>
-
-              <h1 className="text-3xl font-bold text-[#1e293b]">
-
-                Admin Dashboard
-
-              </h1>
-
-              <p className="text-gray-500 text-xl">
-
-                ChaloRide Management Portal
-
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* NAVIGATION */}
-      <div className="max-w-[1400px] mx-auto px-7 pt-8">
-
-        <div className="bg-white rounded-[32px] border p-4 flex justify-between">
-
-          <Link
-            to="/admin"
-            className="flex-1"
-          >
-
-            <button className="w-full py-3 rounded-2xl flex items-center justify-center gap-3 text-gray-500 text-xl font-semibold">
-
-              <FiGrid />
-
-              Overview
-
-            </button>
-
-          </Link>
-
-          <Link
-            to="/admin/verifications"
-            className="flex-1"
-          >
-
-            <button className="w-full py-3 rounded-2xl bg-[#7c7df6] text-white flex items-center justify-center gap-3 text-xl font-semibold shadow-lg">
-
-              <FiShield />
-
-              Verifications
-
-            </button>
-
-          </Link>
-
-          <Link
-            to="/admin/riders"
-            className="flex-1"
-          >
-
-            <button className="w-full py-3 rounded-2xl flex items-center justify-center gap-3 text-gray-500 text-xl font-semibold">
-
-              <FiUsers />
-
-              Riders
-
-            </button>
-
-          </Link>
-
-          <Link
-            to="/admin/complaints"
-            className="flex-1"
-          >
-
-            <button className="w-full py-3 rounded-2xl flex items-center justify-center gap-3 text-gray-500 text-xl font-semibold">
-
-              <FiAlertTriangle />
-
-              Complaints
-
-            </button>
-
-          </Link>
-
-          <Link
-            to="/admin/earnings"
-            className="flex-1"
-          >
-
-            <button className="w-full py-3 rounded-2xl flex items-center justify-center gap-3 text-gray-500 text-xl font-semibold">
-
-              <FiBarChart2 />
-
-              Earnings  
-
-            </button>
-
-          </Link>
-
-        </div>
-
-      </div>
+    <DashboardTabs active="verifications" />
 
       {/* CONTENT */}
-      <div className="max-w-[1400px] mx-auto px-7 py-10">
+      <div className="max-w-[1450px] mx-auto px-7 py-10">
 
         {/* TOP */}
         <div className="flex items-center justify-between mb-10">
@@ -270,11 +149,14 @@ export default function AdminVerifications() {
 
             </button>
 
-            <button className="bg-[#7c7df6] text-white px-7 py-2 rounded-2xl flex items-center gap-3 text-[14px] font-semibold">
+            <button
+              onClick={exportPDF}
+              className="bg-[#7c7df6] text-white px-7 py-2 rounded-2xl flex items-center gap-3 text-[14px] font-semibold"
+            >
 
               <FiDownload />
 
-              Export
+              Export PDF
 
             </button>
 
@@ -289,11 +171,11 @@ export default function AdminVerifications() {
 
             <div
               key={user._id}
-              className="bg-white rounded-[40px] border border-gray-200 p-5 flex items-center justify-between"
+              className="bg-white rounded-[40px] border border-gray-200 p-8 flex items-center justify-between"
             >
 
               {/* LEFT */}
-              <div className="flex items-start gap-5 flex-1">
+              <div className="flex items-start gap-8 flex-1">
 
                 {/* AVATAR */}
                 <div className="w-24 h-24 rounded-full bg-[#f3e8ff] flex items-center justify-center text-[#6366f1] text-3xl font-bold">
@@ -305,10 +187,9 @@ export default function AdminVerifications() {
                 {/* INFO */}
                 <div>
 
-                  <div className="flex items-center gap-5 mb-4">
+                  <div className="flex items-center gap-8 mb-4">
 
-                    <h2 className="text-3xl font-bold text-[#1e293b]">
-
+                    <h2 className="text-2xl font-bold text-[#1e293b]">
                       {user.name}
 
                     </h2>
@@ -325,7 +206,7 @@ export default function AdminVerifications() {
 
                   </div>
 
-                  <div className="space-y-4 text-[#475569] text-xl">
+                  <div className="space-y-4 text-[#475569] text-[16px]">
 
                     <p className="flex items-center gap-3">
 
@@ -401,11 +282,11 @@ export default function AdminVerifications() {
                 </div>
 
                 {/* BUTTONS */}
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-8">
 
                   {user.isVerified ? (
 
-                    <button className="bg-green-100 text-green-600 px-10 py-3 rounded-2xl text-xl font-bold w-56">
+                    <button className="bg-green-100 text-green-600 px-10 py-5 rounded-2xl text-lg font-semibold w-56">
 
                       Verified
 
@@ -417,7 +298,7 @@ export default function AdminVerifications() {
                       onClick={() =>
                         verifyUser(user._id)
                       }
-                      className="bg-[#4ade80] hover:bg-[#22c55e] text-white px-10 py-3 rounded-2xl text-xl font-bold w-56"
+                      className="bg-[#4ade80] hover:bg-[#22c55e] text-white px-10 py-5 rounded-2xl text-lg font-semibold w-56"
                     >
 
                       ✓ Approve
@@ -426,7 +307,7 @@ export default function AdminVerifications() {
 
                   )}
 
-                  <button className="border border-red-300 text-red-500 px-10 py-3 rounded-2xl text-xl font-bold w-56">
+                  <button className="border border-red-300 text-red-500 px-10 py-5 rounded-2xl text-lg font-semibold w-56">
 
                     ✕ Reject
 
@@ -455,7 +336,7 @@ export default function AdminVerifications() {
               onClick={() =>
                 setPreviewImage(null)
               }
-              className="absolute -top-5 -right-5 bg-white w-14 h-14 rounded-full text-xl font-bold shadow-lg"
+              className="absolute -top-5 -right-5 bg-white w-14 h-14 rounded-full text-lg font-semibold shadow-lg"
             >
 
               ×

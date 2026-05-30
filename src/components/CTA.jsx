@@ -24,7 +24,7 @@ export default function CTA() {
 
           <button
             onClick={() => navigate("/signup")}
-            className="mt-10 bg-white text-indigo-600 px-10 py-3 rounded-2xl font-bold text-[14px] hover:scale-105 duration-300"
+            className="mt-10 bg-white text-indigo-600 px-10 py-5 rounded-2xl font-bold text-[14px] hover:scale-105 duration-300"
           >
             Get Started →
           </button>

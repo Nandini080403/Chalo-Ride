@@ -75,7 +75,7 @@ export default function Navbar() {
 
         {/* BUTTONS */}
         {/* RIGHT SIDE */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-8">
 
           {user ? (
 
@@ -129,7 +129,7 @@ export default function Navbar() {
 
               <Link to="/signup">
 
-                <button className="bg-indigo-500 text-white px-7 py-3 rounded-xl font-medium hover:scale-105 duration-300">
+                <button className="bg-indigo-500 text-white px-7 py-5 rounded-xl font-medium hover:scale-105 duration-300">
 
                   Sign Up
 

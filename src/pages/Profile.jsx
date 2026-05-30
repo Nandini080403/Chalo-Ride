@@ -30,9 +30,9 @@ export default function Profile() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-7 -mt-24 relative z-10">
         {/* Profile Card */}
-        <div className="bg-white rounded-[32px] shadow-sm border p-5 flex justify-between items-center">
+        <div className="bg-white rounded-[32px] shadow-sm border p-8 flex justify-between items-center">
           {/* Left */}
-          <div className="flex gap-5 items-center">
+          <div className="flex gap-8 items-center">
             {/* Profile Image */}
             <div className="w-36 h-36 rounded-3xl bg-gray-100 flex items-center justify-center shadow-md">
               <div className="w-20 h-20 rounded-full bg-gray-400"></div>
@@ -75,7 +75,7 @@ export default function Profile() {
           </div>
 
           {/* Rating */}
-          <div className="bg-[#f8fafc] rounded-3xl p-5 text-center min-w-[180px]">
+          <div className="bg-[#f8fafc] rounded-3xl p-8 text-center min-w-[180px]">
             <h2 className="text-3xl font-bold text-[#6366f1]">
               4.9
             </h2>
@@ -117,7 +117,7 @@ export default function Profile() {
           ].map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-3xl border p-5"
+              className="bg-white rounded-3xl border p-8"
             >
               <div
                 className={`w-14 h-14 rounded-full bg-[#f8fafc] flex items-center justify-center text-xl mb-5 ${item.color}`}
@@ -156,11 +156,11 @@ export default function Profile() {
         </div>
 
         {/* Grid Layout */}
-        <div className="grid grid-cols-3 gap-5 mt-8">
+        <div className="grid grid-cols-3 gap-8 mt-8">
           {/* Left Side */}
           <div className="col-span-2 space-y-8">
             {/* About */}
-            <div className="bg-white rounded-3xl border p-5">
+            <div className="bg-white rounded-3xl border p-8">
               <h2 className="text-xl font-bold mb-5 text-[#1e293b]">
                 About Me
               </h2>
@@ -174,13 +174,13 @@ export default function Profile() {
             </div>
 
             {/* Vehicle */}
-            <div className="bg-white rounded-3xl border p-5">
+            <div className="bg-white rounded-3xl border p-8">
               <h2 className="text-xl font-bold mb-8 text-[#1e293b]">
                 Vehicle & Availability
               </h2>
 
-              <div className="grid grid-cols-2 gap-5 mb-5">
-                <div className="bg-[#f8fafc] rounded-2xl p-5">
+              <div className="grid grid-cols-2 gap-8 mb-5">
+                <div className="bg-[#f8fafc] rounded-2xl p-8">
                   <p className="text-gray-400 mb-2">
                     Vehicle
                   </p>
@@ -190,7 +190,7 @@ export default function Profile() {
                   </h3>
                 </div>
 
-                <div className="bg-[#f8fafc] rounded-2xl p-5">
+                <div className="bg-[#f8fafc] rounded-2xl p-8">
                   <p className="text-gray-400 mb-2">
                     Usual Route
                   </p>
@@ -201,7 +201,7 @@ export default function Profile() {
                 </div>
               </div>
 
-              <div className="bg-[#fef2f2] rounded-2xl p-5">
+              <div className="bg-[#fef2f2] rounded-2xl p-8">
                 <p className="text-gray-400 mb-2">
                   Availability
                 </p>
@@ -213,7 +213,7 @@ export default function Profile() {
             </div>
 
             {/* Recent Rides */}
-            <div className="bg-white rounded-3xl border p-5">
+            <div className="bg-white rounded-3xl border p-8">
               <h2 className="text-xl font-bold mb-8 text-[#1e293b]">
                 Recent Rides
               </h2>
@@ -243,7 +243,7 @@ export default function Profile() {
                 ].map((ride, index) => (
                   <div
                     key={index}
-                    className="bg-[#f8fafc] rounded-2xl p-5 flex justify-between items-center"
+                    className="bg-[#f8fafc] rounded-2xl p-8 flex justify-between items-center"
                   >
                     <div>
                       <h3 className="font-bold text-[14px]">
@@ -279,7 +279,7 @@ export default function Profile() {
           {/* Right Side */}
           <div className="space-y-8">
             {/* Verified */}
-            <div className="bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] rounded-3xl p-5 text-white">
+            <div className="bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] rounded-3xl p-8 text-white">
               <div className="flex items-center gap-3 mb-5">
                 <FiShield className="text-xl" />
 
@@ -308,32 +308,32 @@ export default function Profile() {
             </div>
 
             {/* Badges */}
-            <div className="bg-white rounded-3xl border p-5">
+            <div className="bg-white rounded-3xl border p-8">
               <h2 className="text-xl font-bold mb-6">
                 Badges
               </h2>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-green-50 text-green-600 rounded-2xl p-5 text-center font-semibold">
+                <div className="bg-green-50 text-green-600 rounded-2xl p-8 text-center font-semibold">
                   Eco Warrior
                 </div>
 
-                <div className="bg-yellow-50 text-yellow-600 rounded-2xl p-5 text-center font-semibold">
+                <div className="bg-yellow-50 text-yellow-600 rounded-2xl p-8 text-center font-semibold">
                   Top Rider
                 </div>
 
-                <div className="bg-purple-50 text-purple-600 rounded-2xl p-5 text-center font-semibold">
+                <div className="bg-purple-50 text-purple-600 rounded-2xl p-8 text-center font-semibold">
                   50 Rides
                 </div>
 
-                <div className="bg-blue-50 text-blue-600 rounded-2xl p-5 text-center font-semibold">
+                <div className="bg-blue-50 text-blue-600 rounded-2xl p-8 text-center font-semibold">
                   Punctual
                 </div>
               </div>
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-3xl border p-5">
+            <div className="bg-white rounded-3xl border p-8">
               <h2 className="text-xl font-bold mb-6">
                 Quick Actions
               </h2>

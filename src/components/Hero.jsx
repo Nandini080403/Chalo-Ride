@@ -43,7 +43,7 @@ export default function Hero() {
                 flex items-center gap-3
                 bg-indigo-500
                 text-white
-                px-7 py-3
+                px-7 py-5
                 rounded-2xl
                 text-[14px]
                 font-semibold
@@ -65,7 +65,7 @@ export default function Hero() {
                 flex items-center gap-3
                 border border-slate-300
                 bg-white
-                px-7 py-3
+                px-7 py-5
                 rounded-2xl
                 text-[14px]
                 font-semibold

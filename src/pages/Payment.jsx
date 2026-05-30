@@ -49,22 +49,22 @@ export default function Payment() {
         </div>
 
         {/* Layout */}
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-3 gap-8">
 
           {/* LEFT SIDE */}
           <div className="col-span-2 space-y-8">
 
             {/* Trip Summary */}
-            <div className="bg-white rounded-[36px] border p-5 shadow-sm">
+            <div className="bg-white rounded-[36px] border p-8 shadow-sm">
 
               <h2 className="text-3xl font-bold mb-8">
                 Trip Summary
               </h2>
 
-              <div className="grid grid-cols-3 gap-5">
+              <div className="grid grid-cols-3 gap-8">
 
                 {/* Distance */}
-                <div className="bg-[#f8fafc] rounded-3xl p-5 text-center">
+                <div className="bg-[#f8fafc] rounded-3xl p-8 text-center">
 
                   <h3 className="text-3xl font-bold text-[#6366f1]">
                     {distance} km
@@ -77,7 +77,7 @@ export default function Payment() {
                 </div>
 
                 {/* Mileage */}
-                <div className="bg-[#f8fafc] rounded-3xl p-5 text-center">
+                <div className="bg-[#f8fafc] rounded-3xl p-8 text-center">
 
                   <h3 className="text-3xl font-bold text-[#6366f1]">
                     {mileage}
@@ -90,7 +90,7 @@ export default function Payment() {
                 </div>
 
                 {/* Rider Profit */}
-                <div className="bg-[#f8fafc] rounded-3xl p-5 text-center">
+                <div className="bg-[#f8fafc] rounded-3xl p-8 text-center">
 
                     <h3 className="text-3xl font-bold text-[#6366f1]">
                         ₹{riderProfit}
@@ -107,7 +107,7 @@ export default function Payment() {
             </div>
 
             {/* Cost Breakdown */}
-            <div className="bg-white rounded-[36px] border p-5 shadow-sm">
+            <div className="bg-white rounded-[36px] border p-8 shadow-sm">
 
               <h2 className="text-3xl font-bold mb-8">
                 Fuel Calculation
@@ -166,7 +166,7 @@ export default function Payment() {
               </div>
 
               {/* Final Amount */}
-              <div className="bg-[#eef2ff] rounded-3xl p-5 mt-10">
+              <div className="bg-[#eef2ff] rounded-3xl p-8 mt-10">
 
                 <div className="flex justify-between items-center">
 
@@ -195,7 +195,7 @@ export default function Payment() {
           </div>
 
           {/* RIGHT SIDE */}
-          <div className="bg-white rounded-[36px] border p-5 h-fit shadow-sm">
+          <div className="bg-white rounded-[36px] border p-8 h-fit shadow-sm">
 
             <h2 className="text-3xl font-bold mb-8">
               Payment Information
@@ -228,7 +228,7 @@ export default function Payment() {
 
               </div>
 
-              <div className="bg-[#eef2ff] rounded-3xl p-5 text-center">
+              <div className="bg-[#eef2ff] rounded-3xl p-8 text-center">
 
                 <p className="text-gray-500 text-xl mb-3">
                   Passenger Contribution

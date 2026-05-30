@@ -13,6 +13,7 @@ import Legal from "./pages/Legal";
 import Profile from "./pages/Profile";
 import Requests from "./pages/Requests";
 import RiderDetails from "./pages/RiderDetails";
+import RaiseComplaint from "./pages/RaiseComplaint";
 
 import AdminOverview from "./pages/AdminOverview";
 import AdminVerifications from "./pages/AdminVerifications";
@@ -63,6 +64,11 @@ export default function App() {
         <Route path="/admin/complaints" element={<AdminComplaints />} />
 
         <Route path="/admin/earnings" element={<AdminEarnings />}  />
+
+        <Route
+          path="/raise-complaint"
+          element={<RaiseComplaint />}
+        />
         
       </Routes>
 

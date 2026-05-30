@@ -6,12 +6,19 @@ from "react-router-dom";
 
 import API from "../api";
 
+import AdminHeader from "../components/admin/AdminHeader";
+import DashboardTabs from "../components/admin/DashboardTabs";
+
 import {
   FiMapPin,
   FiClock,
   FiUsers,
   FiTruck,
   FiDollarSign,
+  FiMail,
+  FiPhone,
+  FiAlertTriangle,
+  FiSlash,
 } from "react-icons/fi";
 
 export default function RiderDetails() {
@@ -51,135 +58,237 @@ export default function RiderDetails() {
   if (!ride) {
 
     return (
-      <div className="p-6 text-xl">
-        Loading...
+
+      <div className="min-h-screen flex items-center justify-center text-2xl font-semibold text-[#1e293b]">
+
+        Loading Rider Details...
+
       </div>
+
     );
 
   }
 
   return (
 
-    <div className="min-h-screen bg-[#f5f7fb] p-6">
+    <div className="min-h-screen bg-[#f5f7fb]">
 
-      <div className="bg-white rounded-[40px] p-6 border">
+      {/* HEADER */}
+      <AdminHeader />
 
-        {/* TOP */}
-        <div className="flex items-center gap-6 mb-10">
+      {/* TABS */}
+      <DashboardTabs active="riders" />
 
-          <div className="w-24 h-24 rounded-full bg-[#f3e8ff] flex items-center justify-center text-[#6366f1] text-3xl font-bold">
+      {/* CONTENT */}
+      <div className="max-w-[1450px] mx-auto px-8 py-8">
 
-            {
-              ride.driver?.name
-                ?.charAt(0)
-            }
+        {/* TOP CARD */}
+        <div className="bg-white border border-[#e2e8f0] rounded-[32px] p-10 mb-8">
 
-          </div>
+          <div className="flex justify-between items-start">
 
-          <div>
+            {/* LEFT */}
+            <div className="flex items-center gap-8">
 
-            <h1 className="text-3xl font-bold text-[#1e293b]">
+              {/* AVATAR */}
+              <div
+                className="
+                w-28 h-28
+                rounded-full
+                bg-[#f3e8ff]
+                flex items-center justify-center
+                text-[#6366f1]
+                text-5xl
+                font-bold
+                "
+              >
 
-              {
-                ride.driver?.name
-              }
+                {
+                  ride.driver?.name
+                    ?.charAt(0)
+                }
 
-            </h1>
+              </div>
 
-            <p className="text-gray-500 text-xl mt-2">
 
-              {
-                ride.driver?.email
-              }
+              {/* DETAILS */}
+              <div>
 
-            </p>
+                <h1 className="text-4xl font-bold text-[#1e293b] mb-4">
+
+                  {
+                    ride.driver?.name
+                  }
+
+                </h1>
+
+
+                <div className="space-y-3 text-[#475569]">
+
+                  <div className="flex items-center gap-3">
+
+                    <FiMail />
+
+                    {
+                      ride.driver?.email
+                    }
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            {/* ACTIONS */}
+            <div className="flex flex-col gap-4">
+
+              <button
+                className="
+                bg-[#fee2e2]
+                text-[#dc2626]
+                px-8 py-4
+                rounded-2xl
+                font-semibold
+                flex items-center gap-3
+                "
+              >
+
+                <FiSlash />
+
+                Suspend Rider
+
+              </button>
+
+
+              <button
+                className="
+                bg-[#fef3c7]
+                text-[#d97706]
+                px-8 py-4
+                rounded-2xl
+                font-semibold
+                flex items-center gap-3
+                "
+              >
+
+                <FiAlertTriangle />
+
+                Raise Alert
+
+              </button>
+
+            </div>
 
           </div>
 
         </div>
 
-        {/* DETAILS */}
-        <div className="grid grid-cols-2 gap-5">
 
-          <div className="bg-[#f8fafc] rounded-3xl p-5">
+        {/* DETAILS GRID */}
+        <div className="grid grid-cols-2 gap-6">
 
-            <div className="flex items-center gap-4 mb-5">
+          {/* ROUTE */}
+          <div className="bg-white border border-[#e2e8f0] rounded-[32px] p-8">
 
-              <FiMapPin className="text-xl text-[#6366f1]" />
+            <div className="flex items-center gap-4 mb-6">
 
-              <h2 className="text-xl font-bold">
+              <FiMapPin className="text-[#6366f1] text-2xl" />
 
-                Route
+              <h2 className="text-2xl font-bold text-[#1e293b]">
+
+                Route Details
 
               </h2>
 
             </div>
 
-            <p className="text-xl mb-3">
+            <div className="space-y-5 text-lg">
 
-              <span className="font-bold">
+              <p>
 
-                From:
+                <span className="font-bold">
 
-              </span>
+                  From:
 
-              {" "}
-              {ride.from}
+                </span>
 
-            </p>
+                {" "}
+                {ride.from}
 
-            <p className="text-xl">
+              </p>
 
-              <span className="font-bold">
+              <p>
 
-                To:
+                <span className="font-bold">
 
-              </span>
+                  To:
 
-              {" "}
-              {ride.to}
+                </span>
 
-            </p>
+                {" "}
+                {ride.to}
+
+              </p>
+
+            </div>
 
           </div>
 
-          <div className="bg-[#f8fafc] rounded-3xl p-5">
 
-            <div className="flex items-center gap-4 mb-5">
+          {/* VEHICLE */}
+          <div className="bg-white border border-[#e2e8f0] rounded-[32px] p-8">
 
-              <FiTruck className="text-xl text-[#6366f1]" />
+            <div className="flex items-center gap-4 mb-6">
 
-              <h2 className="text-xl font-bold">
+              <FiTruck className="text-[#6366f1] text-2xl" />
 
-                Vehicle
+              <h2 className="text-2xl font-bold text-[#1e293b]">
+
+                Vehicle Information
 
               </h2>
 
             </div>
 
-            <p className="text-xl">
+            <div className="space-y-5 text-lg">
 
-              {ride.vehicle}
+              <p>
 
-            </p>
+                <span className="font-bold">
+
+                  Vehicle:
+
+                </span>
+
+                {" "}
+                {ride.vehicle}
+
+              </p>
+
+            </div>
 
           </div>
 
-          <div className="bg-[#f8fafc] rounded-3xl p-5">
 
-            <div className="flex items-center gap-4 mb-5">
+          {/* TIME */}
+          <div className="bg-white border border-[#e2e8f0] rounded-[32px] p-8">
 
-              <FiClock className="text-xl text-[#6366f1]" />
+            <div className="flex items-center gap-4 mb-6">
 
-              <h2 className="text-xl font-bold">
+              <FiClock className="text-[#6366f1] text-2xl" />
 
-                Time
+              <h2 className="text-2xl font-bold text-[#1e293b]">
+
+                Ride Timing
 
               </h2>
 
             </div>
 
-            <p className="text-xl">
+            <p className="text-lg">
 
               {ride.time}
 
@@ -187,49 +296,53 @@ export default function RiderDetails() {
 
           </div>
 
-          <div className="bg-[#f8fafc] rounded-3xl p-5">
 
-            <div className="flex items-center gap-4 mb-5">
+          {/* SEATS */}
+          <div className="bg-white border border-[#e2e8f0] rounded-[32px] p-8">
 
-              <FiUsers className="text-xl text-[#6366f1]" />
+            <div className="flex items-center gap-4 mb-6">
 
-              <h2 className="text-xl font-bold">
+              <FiUsers className="text-[#6366f1] text-2xl" />
 
-                Seats
+              <h2 className="text-2xl font-bold text-[#1e293b]">
 
-              </h2>
-
-            </div>
-
-            <p className="text-xl">
-
-              {ride.seats}
-
-            </p>
-
-          </div>
-
-          <div className="bg-[#f8fafc] rounded-3xl p-5 col-span-2">
-
-            <div className="flex items-center gap-4 mb-5">
-
-              <FiDollarSign className="text-xl text-[#6366f1]" />
-
-              <h2 className="text-xl font-bold">
-
-                Fare
+                Seat Availability
 
               </h2>
 
             </div>
 
-            <p className="text-3xl font-bold text-[#6366f1]">
+            <p className="text-lg">
 
-              ₹{ride.fare}
+              {ride.seats} Seats
 
             </p>
 
           </div>
+
+        </div>
+
+
+        {/* FARE */}
+        <div className="bg-white border border-[#e2e8f0] rounded-[32px] p-8 mt-6">
+
+          <div className="flex items-center gap-4 mb-5">
+
+            <FiDollarSign className="text-[#6366f1] text-2xl" />
+
+            <h2 className="text-2xl font-bold text-[#1e293b]">
+
+              Ride Fare
+
+            </h2>
+
+          </div>
+
+          <p className="text-5xl font-bold text-[#6366f1]">
+
+            ₹{ride.fare}
+
+          </p>
 
         </div>
 

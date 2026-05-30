@@ -195,26 +195,26 @@ export default function Login() {
             text-xl
           ">
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-8">
               <FiCheckCircle />
               Verified college students only
             </div>
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-8">
               <FiShield />
               Secure and trusted ride sharing
             </div>
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-8">
               📍 Smart live ride matching
             </div>
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-8">
               <FiUsers />
               Connect with your campus community
             </div>
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-8">
               🌱 Eco-friendly commuting
             </div>
 
@@ -433,7 +433,7 @@ export default function Login() {
             <div className="
               flex
               items-center
-              gap-5
+              gap-8
               my-10
             ">
 
