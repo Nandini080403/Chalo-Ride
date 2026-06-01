@@ -1,25 +1,64 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+import axios from "axios";
+
+import {
+  useEffect,
+  useState,
+} from "react";
+
 export default function Payment() {
 
-  // Ride Data
-    const distance = 10;
+    const user =
+      JSON.parse(
+        localStorage.getItem("user")
+      );
 
-    const petrolPrice = 105;
+    const [rides, setRides] =
+      useState([]);
 
-    const mileage = 30;
+    const fetchRides =
+      async () => {
 
-    const riderProfit = 15;
+        try {
 
-    const fuelNeeded =
-        distance / mileage;
+          const res =
+            await axios.get(
 
-    const fuelCost =
-        fuelNeeded * petrolPrice;
+              `http://localhost:5000/api/rides/driver/${user._id}`
 
-    const finalAmount =
-        fuelCost + riderProfit;
+            );
+
+          setRides(
+            res.data
+          );
+
+        } catch (error) {
+
+          console.log(error);
+
+        }
+
+      };
+
+      useEffect(() => {
+
+        fetchRides();
+
+      }, []);
+
+    const totalEarnings =
+      rides.reduce(
+
+        (total, ride) =>
+          total + ride.fare,
+
+        0
+      );
+
+    const totalRides =
+      rides.length;
 
 
   return (
@@ -48,6 +87,8 @@ export default function Payment() {
 
         </div>
 
+
+
         {/* Layout */}
         <div className="grid grid-cols-3 gap-8">
 
@@ -67,11 +108,11 @@ export default function Payment() {
                 <div className="bg-[#f8fafc] rounded-3xl p-8 text-center">
 
                   <h3 className="text-3xl font-bold text-[#6366f1]">
-                    {distance} km
+                    {totalRides}
                   </h3>
 
                   <p className="text-gray-500 mt-2">
-                    Distance
+                    Total Rides
                   </p>
 
                 </div>
@@ -80,11 +121,11 @@ export default function Payment() {
                 <div className="bg-[#f8fafc] rounded-3xl p-8 text-center">
 
                   <h3 className="text-3xl font-bold text-[#6366f1]">
-                    {mileage}
+                    ₹{totalEarnings}
                   </h3>
 
                   <p className="text-gray-500 mt-2">
-                    Mileage
+                    Total Earnings
                   </p>
 
                 </div>
@@ -93,98 +134,19 @@ export default function Payment() {
                 <div className="bg-[#f8fafc] rounded-3xl p-8 text-center">
 
                     <h3 className="text-3xl font-bold text-[#6366f1]">
-                        ₹{riderProfit}
+                        ₹{
+                          totalRides > 0
+                            ? (
+                              totalEarnings /
+                              totalRides
+                              ).toFixed(0)
+                            : 0
+                          }
                     </h3>
 
                     <p className="text-gray-500 mt-2">
-                        Rider Profit
+                        Average Fare
                     </p>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            {/* Cost Breakdown */}
-            <div className="bg-white rounded-[36px] border p-8 shadow-sm">
-
-              <h2 className="text-3xl font-bold mb-8">
-                Fuel Calculation
-              </h2>
-
-              <div className="space-y-6 text-xl">
-
-                <div className="flex justify-between">
-
-                  <span className="text-gray-500">
-                    Petrol Price
-                  </span>
-
-                  <span className="font-bold">
-                    ₹{petrolPrice}/L
-                  </span>
-
-                </div>
-
-                <div className="flex justify-between">
-
-                  <span className="text-gray-500">
-                    Fuel Needed
-                  </span>
-
-                  <span className="font-bold">
-                    {fuelNeeded.toFixed(2)} L
-                  </span>
-
-                </div>
-
-                <div className="flex justify-between">
-
-                  <span className="text-gray-500">
-                    Fuel Cost
-                  </span>
-
-                  <span className="font-bold">
-                    ₹{fuelCost.toFixed(2)}
-                  </span>
-
-                </div>
-
-                <div className="flex justify-between">
-
-                  <span className="text-gray-500">
-                    Rider Profit
-                  </span>
-
-                  <span className="font-bold text-green-600">
-                    ₹{riderProfit}
-                  </span>
-
-                </div>
-
-              </div>
-
-              {/* Final Amount */}
-              <div className="bg-[#eef2ff] rounded-3xl p-8 mt-10">
-
-                <div className="flex justify-between items-center">
-
-                  <div>
-
-                    <p className="text-gray-500 text-xl mb-2">
-                      Each Passenger Pays
-                    </p>
-
-                    <h3 className="text-3xl font-bold text-[#6366f1]">
-                      ₹{finalAmount.toFixed(2)}
-                    </h3>
-
-                  </div>
-
-                  <div className="text-7xl">
-                    💰
-                  </div>
 
                 </div>
 
@@ -193,6 +155,7 @@ export default function Payment() {
             </div>
 
           </div>
+                  
 
           {/* RIGHT SIDE */}
           <div className="bg-white rounded-[36px] border p-8 h-fit shadow-sm">
@@ -201,46 +164,21 @@ export default function Payment() {
               Payment Information
             </h2>
 
-            {/* Info Cards */}
-            <div className="space-y-5">
+            <div className="bg-[#eef2ff] rounded-3xl p-8 text-center">
 
-              <div className="bg-[#f8fafc] rounded-3xl p-6">
+              <p className="text-gray-500 text-xl mb-3">
+                Total Earnings
+              </p>
 
-                <p className="text-gray-500 text-[14px] mb-2">
-                  Total Fuel Expense
-                </p>
+              <h2 className="text-4xl font-bold text-[#6366f1]">
 
-                <h3 className="text-xl font-bold text-[#1e293b]">
-                  ₹{fuelCost.toFixed(2)}
-                </h3>
+                ₹{totalEarnings}
 
-              </div>
-
-              <div className="bg-[#f8fafc] rounded-3xl p-6">
-
-                <p className="text-gray-500 text-[14px] mb-2">
-                  Extra Rider Profit
-                </p>
-
-                <h3 className="text-xl font-bold text-green-600">
-                  ₹{riderProfit}
-                </h3>
-
-              </div>
-
-              <div className="bg-[#eef2ff] rounded-3xl p-8 text-center">
-
-                <p className="text-gray-500 text-xl mb-3">
-                  Passenger Contribution
-                </p>
-
-                <h2 className="text-3xl font-bold text-[#6366f1]">
-                  ₹{finalAmount.toFixed(2)}
-                </h2>
-
-              </div>
+              </h2>
 
             </div>
+
+                
 
             {/* Notice */}
             <div className="bg-yellow-50 border border-yellow-200 rounded-3xl p-6 mt-8">

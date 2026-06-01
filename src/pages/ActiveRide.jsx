@@ -1,6 +1,12 @@
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import axios from "axios";
+
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import {
   MapContainer,
@@ -19,6 +25,48 @@ import {
 } from "react-icons/fi";
 
 export default function ActiveRide() {
+
+  const user =
+    JSON.parse(
+      localStorage.getItem("user")
+    );
+
+  const [activeRides, setActiveRides] =
+    useState([]);
+
+  const currentRide =
+    activeRides[0];
+
+  const fetchActiveRides =
+    async () => {
+
+      try {
+
+        const res =
+          await axios.get(
+
+            `http://localhost:5000/api/rides/driver/${user._id}`
+
+          );
+
+        setActiveRides(
+          res.data
+        );
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };  
+
+  useEffect(() => {
+
+    fetchActiveRides();
+
+  }, []);
+
   return (
     <div className="bg-[#f5f7fb] min-h-screen">
       <Navbar />
@@ -53,7 +101,9 @@ export default function ActiveRide() {
                     </h2>
 
                     <p className="text-gray-500 text-[14px]">
-                      Hostel Block A → Main Campus
+                      {currentRide?.from}
+                      {" → "}
+                      {currentRide?.to}
                     </p>
                   </div>
                 </div>
@@ -118,11 +168,13 @@ export default function ActiveRide() {
                   </p>
 
                   <h3 className="text-xl font-semibold text-[#1e293b]">
-                    Jakkur → Main Campus
+                    {currentRide?.from}
+                    {" → "}
+                    {currentRide?.to}
                   </h3>
 
                   <p className="text-gray-500 text-[14px] mt-2">
-                    Expected: 8:30 AM
+                    Expected: {currentRide?.time}
                   </p>
                 </div>
 
@@ -132,7 +184,7 @@ export default function ActiveRide() {
                   </p>
 
                   <h3 className="text-xl font-semibold text-[#1e293b]">
-                    ₹25
+                    ₹{currentRide?.fare}
                   </h3>
                 </div>
               </div>
@@ -155,11 +207,13 @@ export default function ActiveRide() {
                 />
 
                 <h3 className="text-xl font-bold text-[#1e293b]">
-                  Priya Sharma
+                  {currentRide?.driver?.name}
                 </h3>
 
                 <p className="text-gray-500 text-[14px] mt-2">
-                  Computer Science • 3rd Year
+                  {currentRide?.driver?.department}
+                  {" • "}
+                  {currentRide?.driver?.year}
                 </p>
 
                 <p className="text-[#f59e0b] text-xl mt-4">

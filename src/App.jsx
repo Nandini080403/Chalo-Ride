@@ -41,13 +41,41 @@ export default function App() {
 
         <Route path="/legal" element={<Legal />} />
 
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/requests" element={<Requests />} />
+        <Route
+          path="/requests"
+          element={
+            <ProtectedRoute>
+            <Requests />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/activeride" element={<ActiveRide />} />
+        <Route
+          path="/activeride"
+          element={
+            <ProtectedRoute>
+            <ActiveRide />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/payment" element={<Payment />} />
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute>
+            <Payment />
+            </ProtectedRoute>
+          }
+        />
 
         {/* ADMIN DASHBOARD */}
         <Route path="/admin" element={<AdminOverview />} />

@@ -1,5 +1,11 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import axios from "axios";
+
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import {
   FiMapPin,
@@ -8,36 +14,78 @@ import {
   FiUsers,
 } from "react-icons/fi";
 
-const rides = [
-  {
-    name: "Priya Sharma",
-    course: "Computer Science • 3rd Year",
-    route: "Jakkur → Main Campus",
-    time: "8:30 AM",
-    vehicle: "Scooty",
-    price: "₹25",
-  },
 
-  {
-    name: "Rahul Verma",
-    course: "Mechanical Engg • 2nd Year",
-    route: "Metro Station → Engineering Block",
-    time: "8:00 AM",
-    vehicle: "Scooty",
-    price: "₹40",
-  },
-
-  {
-    name: "Ananya Reddy",
-    course: "Business Admin • 4th Year",
-    route: "Hebbal → Campus Gate 2",
-    time: "8:10 AM",
-    vehicle: "Bike",
-    price: "₹50",
-  },
-];
 
 export default function FindRide() {
+
+  const user =
+    JSON.parse(
+      localStorage.getItem("user")
+    );
+
+  const [rides, setRides] =
+    useState([]);
+
+  const handleRequestRide =
+    async (rideId) => {
+
+      try {
+
+        await axios.post(
+
+          "http://localhost:5000/api/requests",
+
+          {
+            rideId,
+            riderId: user._id,
+          }
+
+        );
+
+        alert(
+          "Ride request sent!"
+        );
+
+      } catch (error) {
+
+        alert(
+          error.response?.data?.message
+        );
+
+      }
+
+    };
+
+    const fetchRides =
+      async () => {
+
+        try {
+
+          const res =
+            await axios.get(
+              "http://localhost:5000/api/rides"
+            );
+
+          setRides(
+            res.data
+          );
+
+        } catch (error) {
+
+          alert(
+            error.response?.data?.message
+          );
+
+        }
+
+      };
+
+    useEffect(() => {
+
+      fetchRides();
+
+    }, []);
+
   return (
     <div className="bg-[#f5f7fb] min-h-screen">
       {/* Navbar */}
@@ -118,7 +166,15 @@ export default function FindRide() {
 
         {/* Ride Cards */}
         <div className="space-y-6">
-          {rides.map((ride, index) => (
+          {rides
+
+            .filter(
+              (ride) =>
+                ride.driver?._id !==
+                user._id
+            )
+
+            .map((ride, index) => (
             <div
               key={index}
               className="bg-white border rounded-[32px] p-8 flex justify-between items-center shadow-sm"
@@ -133,11 +189,11 @@ export default function FindRide() {
                 {/* Details */}
                 <div>
                   <h2 className="text-xl font-bold text-[#1e293b] mb-2">
-                    {ride.name}
+                    {ride.driver?.name}
                   </h2>
 
                   <p className="text-gray-500 text-[14px] mb-4">
-                    {ride.course}
+                    {ride.driver?.department} • {ride.driver?.year}
                   </p>
 
                   <div className="flex flex-wrap gap-8 text-gray-500">
@@ -145,7 +201,7 @@ export default function FindRide() {
                       <FiMapPin className="text-[#6366f1]" />
 
                       <span className="font-medium text-[#1e293b]">
-                        {ride.route}
+                        {ride.from} → {ride.to}
                       </span>
                     </div>
 
@@ -165,15 +221,24 @@ export default function FindRide() {
               {/* Right */}
               <div className="text-right">
                 <h2 className="text-3xl font-bold text-[#6366f1]">
-                  {ride.price}
+                  ₹{ride.fare}
                 </h2>
 
                 <p className="text-gray-500 mb-4">
                   per person
                 </p>
 
-                <button className="bg-[#8b5cf6] hover:bg-[#7c3aed] transition text-white px-7 py-2 rounded-2xl font-semibold text-[14px] mb-3">
+                <button
+                  onClick={() =>
+                    handleRequestRide(
+                      ride._id
+                    )
+                  }
+                  className="bg-[#8b5cf6] hover:bg-[#7c3aed] transition text-white px-7 py-2 rounded-2xl font-semibold text-[14px] mb-3"
+                >
+
                   Request Ride
+
                 </button>
 
                 <div className="flex items-center justify-end gap-2 text-gray-500">

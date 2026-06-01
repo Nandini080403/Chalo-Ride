@@ -94,6 +94,33 @@ export default function Navbar() {
 
               </Link>
 
+              {/* ACTIVE RIDES */}
+              <Link
+                to="/activeride"
+              >
+
+                <button className="font-medium text-slate-700 hover:text-indigo-500">
+
+                  Active Ride
+
+                </button>
+
+              </Link>
+
+
+              {/* PAYMENTS */}
+              <Link
+                to="/payment"
+              >
+
+                <button className="font-medium text-slate-700 hover:text-indigo-500">
+
+                  Payments
+
+                </button>
+
+              </Link>
+
               {/* PROFILE ICON */}
               <Link
                 to="/profile"
