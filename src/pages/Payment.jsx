@@ -26,7 +26,7 @@ export default function Payment() {
           const res =
             await axios.get(
 
-              `http://localhost:5000/api/rides/driver/${user._id}`
+              `http://localhost:5000/api/requests/driver/${user._id}`
 
             );
 
@@ -48,18 +48,45 @@ export default function Payment() {
 
       }, []);
 
+    const acceptedRides =
+      rides.filter(
+        (ride) =>
+          ride.status ===
+          "accepted"
+      );
+
     const totalEarnings =
-      rides.reduce(
+      acceptedRides.reduce(
 
         (total, ride) =>
-          total + ride.fare,
+
+          total +
+          ride.ride?.fare,
 
         0
       );
 
-    const totalRides =
-      rides.length;
 
+    const totalRides =
+      acceptedRides.length;
+
+    const distance =
+      acceptedRides[0]?.ride?.distance || 0;
+
+    const mileage = 30;
+
+    const petrolPrice = 105;
+
+    const riderProfit = 15;
+
+    const fuelNeeded =
+      distance / mileage;
+
+    const fuelCost =
+      fuelNeeded * petrolPrice;
+
+    const passengerAmount =
+      fuelCost + riderProfit;
 
   return (
     <div className="bg-[#f6f7fb] min-h-screen">
@@ -164,15 +191,70 @@ export default function Payment() {
               Payment Information
             </h2>
 
+            <div className="space-y-5 mb-8">
+
+              <div className="bg-[#f8fafc] rounded-3xl p-6 flex justify-between">
+
+                <span className="text-gray-500">
+                  Distance
+                </span>
+
+                <span className="font-bold">
+                  {distance} km
+                </span>
+
+              </div>
+
+
+              <div className="bg-[#f8fafc] rounded-3xl p-6 flex justify-between">
+
+                <span className="text-gray-500">
+                  Mileage
+                </span>
+
+                <span className="font-bold">
+                  {mileage} km/L
+                </span>
+
+              </div>
+
+
+              <div className="bg-[#f8fafc] rounded-3xl p-6 flex justify-between">
+
+                <span className="text-gray-500">
+                  Fuel Cost
+                </span>
+
+                <span className="font-bold">
+                  ₹{fuelCost.toFixed(0)}
+                </span>
+
+              </div>
+
+
+              <div className="bg-[#f8fafc] rounded-3xl p-6 flex justify-between">
+
+                <span className="text-gray-500">
+                  Rider Profit
+                </span>
+
+                <span className="font-bold text-green-600">
+                  ₹{riderProfit}
+                </span>
+
+              </div>
+
+            </div>
+
             <div className="bg-[#eef2ff] rounded-3xl p-8 text-center">
 
               <p className="text-gray-500 text-xl mb-3">
-                Total Earnings
+                Passenger Contribution
               </p>
 
               <h2 className="text-4xl font-bold text-[#6366f1]">
 
-                ₹{totalEarnings}
+                ₹{passengerAmount.toFixed(0)}
 
               </h2>
 

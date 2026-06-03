@@ -163,33 +163,30 @@ export default function OfferRide() {
         await API.post(
           "/rides",
           {
-            driver:
-              user?._id,
+            driver: user?._id,
 
-            from:
-              "Koramangala",
+            from,
 
-            to:
-              "Kristu Jayanti University",
+            to,
 
-            date:
-              "2026-06-01",
+            date,
 
-            time:
-              "8:00 AM",
+            time, 
 
-            vehicle:
-              "Bike",
+            vehicle,
 
-            seats: 2,
+            seats,
 
-            fare: 50,
+            fare:
+              Math.round(
+                ((distance / mileage) * petrolPrice ) + 15
+              ),
+
+            distance,
           }
         );
 
-        alert(
-          "Ride Published"
-        );
+        alert("Ride Published");
 
       } catch (error) {
 
@@ -274,7 +271,7 @@ export default function OfferRide() {
 
                 <input
                   type="text"
-                  placeholder="Starting location"
+                  placeholder="Starting Point"
                   value={from}
                   onChange={(e) =>
                     setFrom(e.target.value)
@@ -295,13 +292,13 @@ export default function OfferRide() {
                 </label>
 
                 <input
-                  type="text"
-                  placeholder="Destination"
-                  value={to}
+                  type="number"
+                  placeholder="Distance in KM"
+                  value={distance}
                   onChange={(e) =>
-                    setTo(e.target.value)
+                    setDistance(e.target.value)
                   }
-                  className="w-full bg-[#f8fafc] border rounded-2xl px-7 py-5 outline-none"
+                  className="w-full bg-[#f8fafc] border rounded-2xl px-7 py-5 outline-none mt-6"
                 />
 
               </div>
@@ -503,7 +500,7 @@ export default function OfferRide() {
 
                 <option>Scooty</option>
 
-              </select>+
+              </select>
 
               <input
                 type="text"

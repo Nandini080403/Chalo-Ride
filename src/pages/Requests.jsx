@@ -66,19 +66,31 @@ export default function Requests() {
   const pendingRequests =
     requests.filter(
       (req) =>
-        req.status === "pending"
+
+        req.status === "pending" &&
+
+        req.rider?._id !==
+        user._id
     );
 
   const acceptedRequests =
     requests.filter(
       (req) =>
-        req.status === "accepted"
+
+        req.status === "accepted" &&
+
+        req.rider?._id !==
+        user._id
     );  
 
   const rejectedRequests =
     requests.filter(
       (req) =>
-        req.status === "rejected"
+
+        req.status === "rejected" &&
+
+        req.rider?._id !==
+        user._id
     );
     
 

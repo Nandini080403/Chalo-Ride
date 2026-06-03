@@ -35,7 +35,11 @@ export default function ActiveRide() {
     useState([]);
 
   const currentRide =
-    activeRides[0];
+    activeRides.find(
+      (ride) =>
+        ride.status ===
+        "accepted"
+    );
 
   const fetchActiveRides =
     async () => {
@@ -45,7 +49,7 @@ export default function ActiveRide() {
         const res =
           await axios.get(
 
-            `http://localhost:5000/api/rides/driver/${user._id}`
+            `http://localhost:5000/api/requests/driver/${user._id}`
 
           );
 
@@ -101,9 +105,9 @@ export default function ActiveRide() {
                     </h2>
 
                     <p className="text-gray-500 text-[14px]">
-                      {currentRide?.from}
+                      {currentRide?.ride?.from}
                       {" → "}
-                      {currentRide?.to}
+                      {currentRide?.ride?.to}
                     </p>
                   </div>
                 </div>
@@ -168,13 +172,13 @@ export default function ActiveRide() {
                   </p>
 
                   <h3 className="text-xl font-semibold text-[#1e293b]">
-                    {currentRide?.from}
+                    {currentRide?.ride?.from}
                     {" → "}
-                    {currentRide?.to}
+                    {currentRide?.ride?.to}
                   </h3>
 
                   <p className="text-gray-500 text-[14px] mt-2">
-                    Expected: {currentRide?.time}
+                    Expected: {currentRide?.ride?.time}
                   </p>
                 </div>
 
@@ -184,7 +188,7 @@ export default function ActiveRide() {
                   </p>
 
                   <h3 className="text-xl font-semibold text-[#1e293b]">
-                    ₹{currentRide?.fare}
+                    ₹{currentRide?.ride?.fare}
                   </h3>
                 </div>
               </div>
@@ -200,14 +204,27 @@ export default function ActiveRide() {
               </h2>
 
               <div className="flex flex-col items-center text-center">
-                <img
-                  src="https://i.pravatar.cc/150?img=32"
-                  alt=""
-                  className="w-32 h-32 rounded-full object-cover mb-5"
-                />
+                <div className="
+                  w-32
+                  h-32
+                  rounded-full
+                  bg-[#6366f1]
+                  flex
+                  items-center
+                  justify-center
+                  text-white
+                  text-5xl
+                  font-bold
+                  mb-5
+                ">
+
+                  {currentRide?.rider?.name
+                    ?.charAt(0)}
+
+                </div>
 
                 <h3 className="text-xl font-bold text-[#1e293b]">
-                  {currentRide?.driver?.name}
+                  {currentRide?.rider?.name}
                 </h3>
 
                 <p className="text-gray-500 text-[14px] mt-2">
