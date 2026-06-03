@@ -440,13 +440,10 @@ export default function Signup() {
                       "Enter your full name",
 
                     pattern: {
-
-                      value: /^[A-Za-z\s]+$/,
-
-                      message:
-                        "Only alphabets allowed",
+                     value: /^[^0-9]+$/,
+                     message: "Numbers are not allowed",
                     },
-
+                    
                     minLength: {
 
                       value: 3,
